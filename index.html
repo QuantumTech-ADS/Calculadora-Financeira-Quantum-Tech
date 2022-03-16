@@ -164,7 +164,6 @@
         </h4>
         <h2 style="text-align: center;">
             <input id="input_nome_empresa" placeholder="Nome da empresa"><br>
-            <input id="input_qtd_pessoa" placeholder="Pessoas por ônibus"><br>
             <input id="input_qtd_onibus" placeholder="Quantidade de ônibus"><br>
             <input id="input_km" placeholder="Km por dia"><br>
 
@@ -201,41 +200,31 @@
 
 
             //Variaveis 
-            var empresa = input_nome_empresa.value // variavel pra puxar o nome da empresa
+            var nome_empresa = input_nome_empresa.value
+            var qtd_onibus = Number (input_qtd_onibus.value)
+            var qtd_km = Number (input_km.value)
+            
+            var qtd_litros_onibus = qtd_km / 2.17
+            var qtd_litros_micronibus = qtd_km / 8
 
-            var qtd_pessoas = Number(input_qtd_pessoa.value) // variavel pra puxar a quantidade de pessoas da empresa
+           var combustivel_onibus = qtd_litros_onibus * 5.9 // valor em real estipulado pela input
+           var combustivel_micronibus = qtd_litros_micronibus * 5.9
 
-            var qtd_onibus = Number(input_qtd_onibus.value) // variavel pra puxar a quantidade de onibus da empresa
+           var combustivel_onibus_mensal = combustivel_onibus * 30
+           var combustivel_micronibus_mensal = combustivel_micronibus * 30
+           var motorista = (2200 * 3) * qtd_onibus
+           var manutencao = 1900
+           var motorista_micro = (2200 * 3) * (qtd_onibus * 0.3)
 
-            var km = Number(input_km.value) // variavel pra puxar a quilometragem por dia dos onibus
+           var custo_geral_mensal_onibus = combustivel_onibus_mensal + motorista + manutencao 
 
-            var motorista = 2.000 // variavel do valor do salario do motorista
+           var custo_geral_mensal_micronibus = combustivel_micronibus_mensal + motorista_micro + manutencao // certo
 
-            var manutencao = 1.500 // variavel do valor do salario da manutencao
+           var reducao_valor = custo_geral_mensal_onibus - custo_geral_mensal_micronibus
 
-            var combustivel = ((km / 2.20) * 5.90) * 30 // variavel do valor do gasto com combustivel no onibus
 
-            var gasto_onibus = (motorista + manutencao + combustivel) // variavel do calculo de custo para onibus por mes
 
-            var quantidade_onibus = qtd_onibus * 0.8
-
-            var combustivel_micro = ((km / 8) * 5.90) * 30 // variavel para valor do gasto com combustivel no micro onibus
-
-            var gasto_microonibus = (motorista + manutencao + combustivel_micro) // variavel com gasto total com micro onibus
-
-            var quantidade_micro = qtd_onibus * 0.2 //variavel para quantidade de micro onibus 
-
-            var onibus = quantidade_onibus * gasto_onibus // variavel para pegar o valor total de gasto com quantidade total de onibus 
-
-            var micro_onibus = quantidade_micro * gasto_microonibus // variavel para pegar o valor total de gasto com quantidade total de micro onibus
-
-            var geral_tudo = (onibus * 8) + (micro_onibus * 2)
-
-            var geral_onibus = onibus * 10
-
-            var diferenca = geral_onibus - geral_tudo
-
-            resultadoDiv.innerHTML = `<br><br><br><br><br><br><br>Olá ${empresa} seu gasto total é ${gasto_onibus.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}. Verificamos que se no lugar de ${qtd_onibus} ônibus, usar ${quantidade_micro} micro-ônibus, seu gasto diminuirá em ${diferenca.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+            resultadoDiv.innerHTML = `Olá ${nome_empresa}! Seu gasto atualmente com a utilização de 100% de frota de ônibus é de ${custo_geral_mensal_onibus.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} porém se reduzir em média 30% os ônibus e colocar micro-ônibus, seu gasto cairá para ${reducao_valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}.`
         }
 
 
