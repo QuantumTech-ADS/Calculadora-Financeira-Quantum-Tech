@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora-QuantumTech</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto';
+        }
+
+        body {
+            background-image: url(fundo\ calculadora\ financeira\ \(1\).png);
+            background-repeat: no-repeat;
+            background-size: 100em;
+
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            height: 4.5em;
+            float: left;
+            background-color: #f5f5f5f5;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            filter: drop-shadow(0 0 0.5em #c9c8ca);
+
+        }
+
+        header h1 {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 2.3em;
+            margin-top: 1.3%;
+            margin-left: 1%;
+            color: #9e57e0;
+
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .divPrincipal {
+            width: 50%;
+            background-color: #f5f5f5f5;
+            height: 27em;
+            margin-top: 3%;
+            margin-left: 25%;
+            border-radius: 5px;
+            border-bottom-left-radius: 70px;
+            border-bottom-right-radius: 70px;
+
+        }
+
+        .imgLogo {
+            height: 180px;
+            width: 180px;
+        }
+
+        h4 {
+            text-align: center;
+            margin-top: -3%;
+            font-size: 23px;
+            color: blueviolet;
+            font-weight: bolder;
+        }
+
+        input {
+            border: 0;
+            outline: 0;
+            width: 35%;
+            height: 1.9em;
+            box-shadow: 3px 3px 3px #acabab;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        button {
+            padding: 6px;
+            outline: 0;
+            border: 0;
+            color: #f5f5f5f5;
+            background-color: blueviolet;
+            border-radius: 2px;
+            font-weight: 650;
+            margin-top: 2.5%;
+            cursor: pointer;
+            transition: all .5s ease-in-out;
+        }
+
+        button:hover {
+            background-color: blueviolet;
+            transform: scale(110%, 110%);
+        }
+
+
+        .botao:hover {
+            background-color: #57639e;
+            font-family: 'Roboto';
+        }
+
+        .modal {
+            width: 65%;
+            height: 20em;
+            background-color: #eaeaee;
+            position: absolute;
+            top: 15%;
+            left: 17%;
+            border-radius: 5px;
+            display: none;
+            animation: animate;
+            animation-duration: 900ms;
+            box-shadow: 1px 0 3px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes animate {
+            from {
+                opacity: 5;
+            }
+
+            from {
+                opacity: 0;
+            }
+        }
+
+        .fechar {
+            width: 30px;
+            height: 30px;
+            background-color: blueviolet;
+            border-radius: 50px;
+            float: right;
+            cursor: pointer;
+            margin-right: 1%;
+            margin-top: 0.9%;
+            color: #fff;
+            border: none;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<header>
+    <a href="index.html">
+        <h1>QuantumTech</h1>
+    </a>
+</header><br><br><br><br><br>
+
+<body>
+
+    <div class="divPrincipal">
+        <p style="text-align: center;">
+            <img class="imgLogo" src="quantum (1).png" alt="">
+        </p>
+        <h4>
+            calculadora financeira
+        </h4>
+        <h2 style="text-align: center;">
+            <input id="input_nome_empresa" placeholder="Nome da empresa"><br>
+            <input id="input_qtd_pessoa" placeholder="Pessoas por ônibus"><br>
+            <input id="input_qtd_onibus" placeholder="Quantidade de ônibus"><br>
+            <input id="input_km" placeholder="Km por dia"><br>
+
+            <button onclick="acao()">
+                Calcular
+            </button>
+
+            <div class="modal">
+                <p style="text-align: center;"> <button onclick="fechar()" class="fechar">
+                        <p>X</p>
+                    </button>
+
+                <p id="resultadoDiv" style="text-align: center; color: blueviolet;"></p>
+
+            </div>
+    </div><br>
+
+    <p style="text-align: center;" id="Texto">
+    </p>
+
+
+
+    <script>
+
+
+        function acao() {
+
+            //MODAL 
+            let modal = document.querySelector('.modal')
+
+            modal.style.display = 'block';
+
+
+
+
+            //Variaveis 
+            var empresa = input_nome_empresa.value // variavel pra puxar o nome da empresa
+
+            var qtd_pessoas = Number(input_qtd_pessoa.value) // variavel pra puxar a quantidade de pessoas da empresa
+
+            var qtd_onibus = Number(input_qtd_onibus.value) // variavel pra puxar a quantidade de onibus da empresa
+
+            var km = Number(input_km.value) // variavel pra puxar a quilometragem por dia dos onibus
+
+            var motorista = 2.000 // variavel do valor do salario do motorista
+
+            var manutencao = 1.500 // variavel do valor do salario da manutencao
+
+            var combustivel = ((km / 2.20) * 5.90) * 30 // variavel do valor do gasto com combustivel no onibus
+
+            var gasto_onibus = (motorista + manutencao + combustivel) // variavel do calculo de custo para onibus por mes
+
+            var quantidade_onibus = qtd_onibus * 0.8
+
+            var combustivel_micro = ((km / 8) * 5.90) * 30 // variavel para valor do gasto com combustivel no micro onibus
+
+            var gasto_microonibus = (motorista + manutencao + combustivel_micro) // variavel com gasto total com micro onibus
+
+            var quantidade_micro = qtd_onibus * 0.2 //variavel para quantidade de micro onibus 
+
+            var onibus = quantidade_onibus * gasto_onibus // variavel para pegar o valor total de gasto com quantidade total de onibus 
+
+            var micro_onibus = quantidade_micro * gasto_microonibus // variavel para pegar o valor total de gasto com quantidade total de micro onibus
+
+            var geral_tudo = (onibus * 8) + (micro_onibus * 2)
+
+            var geral_onibus = onibus * 10
+
+            var diferenca = geral_onibus - geral_tudo
+
+            resultadoDiv.innerHTML = `<br><br><br><br><br><br><br>Olá ${empresa} seu gasto total é ${gasto_onibus.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}. Verificamos que se no lugar de ${qtd_onibus} ônibus, usar ${quantidade_micro} micro-ônibus, seu gasto diminuirá em ${diferenca.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+        }
+
+
+        // Fechar modal
+        function fechar() {
+
+            let modal = document.querySelector('.modal')
+
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
